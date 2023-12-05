@@ -26,8 +26,8 @@ ENV PATH="/home/jovyan/.cargo/bin:${PATH}"
 RUN cargo install evcxr_jupyter
 RUN evcxr_jupyter --install
 
-# USER quant
-
+USER $NB_UID
+# USER jovyan
 # Expose Jupyter notebook port
 EXPOSE 8888
 
