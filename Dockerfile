@@ -10,7 +10,8 @@ RUN apt-get update && \
         build-essential \
         libzmq3-dev \
         pkg-config \
-        libssl-dev
+        libssl-dev \
+        libclang-dev
 
 # Install Rust
 RUN wget https://sh.rustup.rs -O rustup-init.sh && \
@@ -20,12 +21,15 @@ ENV PATH="/home/jovyan/.cargo/bin:${PATH}"
 
 # Install Jupyter kernel for Rust
 RUN cargo install evcxr_jupyter
+# RUN cargo install polars
 RUN evcxr_jupyter --install
 
-USER $NB_UID
-
 # Set ownership of the Jupyter runtime directory
-RUN fix-permissions /home/jovyan/.local/share/jupyter/runtime
+# RUN fix-permissions /home/jovyan/.local/share/jupyter/runtime
+RUN chmod 777 -R /home/jovyan
+
+
+USER $NB_UID
 
 # Expose Jupyter notebook port
 EXPOSE 8888
