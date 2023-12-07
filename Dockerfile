@@ -10,8 +10,16 @@ RUN apt-get update && \
         build-essential \
         libzmq3-dev \
         pkg-config \
-        libssl-dev \
-        libclang-dev
+        libssl-dev
+
+# RUN apt-get update && \
+#     apt-get install -y \
+#         wget \
+#         build-essential \
+#         libzmq3-dev \
+#         pkg-config \
+#         libssl-dev \
+#         libclang-dev
 
 # Install Rust
 RUN wget https://sh.rustup.rs -O rustup-init.sh && \
@@ -28,6 +36,11 @@ RUN evcxr_jupyter --install
 # RUN fix-permissions /home/jovyan/.local/share/jupyter/runtime
 RUN chmod 777 -R /home/jovyan
 
+# Copy the Cargo.toml and Cargo.lock files
+COPY Cargo.toml /home/jovyan
+
+# Build the dependencies
+RUN cargo build --release
 
 USER $NB_UID
 
