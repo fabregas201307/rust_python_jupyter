@@ -1,7 +1,9 @@
 [package]
 name = "my_rust_notebook"
 version = "0.1.0"
-edition = "2023"
+edition = "2021"
 
 [dependencies]
 polars = "0.17.4"
+
+[bin]

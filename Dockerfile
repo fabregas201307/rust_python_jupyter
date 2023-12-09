@@ -38,9 +38,10 @@ RUN chmod 777 -R /home/jovyan
 
 # Copy the Cargo.toml and Cargo.lock files
 COPY Cargo.toml /home/jovyan
+COPY notebook /home/jovyan/notebook
 
 # Build the dependencies
-RUN cargo build --release
+# RUN cargo build --release
 
 USER $NB_UID
 
